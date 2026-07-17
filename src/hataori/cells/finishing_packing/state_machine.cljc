@@ -54,3 +54,10 @@
                                                              "noWorkerBelowBhi" true
                                                              "dividendAttested" (get cs "dividend_attested")}})
      "next_node" "end"}))
+
+(defn handle
+  "Execute the complete standalone finishing/packing state machine."
+  [state]
+  (let [finished (merge state (transition-to-finished state))
+        folded (merge finished (transition-to-folded finished))]
+    (transition-to-lot-attested folded)))

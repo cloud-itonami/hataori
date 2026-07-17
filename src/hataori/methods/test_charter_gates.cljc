@@ -19,9 +19,7 @@
 
 #?(:clj
    (do
-     (def ^:private here (.getParentFile (java.io.File. ^String *file*)))      ;; methods/
-     (def ^:private actor-dir (.getParentFile here))                          ;; hataori/
-     (def ^:private lexdir (java.io.File. actor-dir "lex"))
+     (def ^:private lexdir (java.io.File. "lex"))
 
      (defn- unblob
        "edn-datomize.bb pr-str's non-scalar values into a blob string; read it back."
@@ -34,7 +32,7 @@
      (defn- reconstitute-entity
        "Datomic/Datascript tx-data [{:db/id -1 :lex.<name>/k v ...}] -> the original
         un-namespaced lexicon map, so downstream (:defs / :id / :lexicon) lookups are
-        unchanged (Phase 4 edn-datomize actor fan-out; root/20-actors/hataori)."
+        unchanged (Phase 4 EDN datomization in the standalone hataori actor)."
        [tx-data]
        (into {} (map (fn [[k v]] [(keyword (name k)) (unblob v)]))
              (dissoc (first tx-data) :db/id)))

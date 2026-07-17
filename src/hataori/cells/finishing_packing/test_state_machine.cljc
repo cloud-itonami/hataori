@@ -26,6 +26,14 @@
     (is (= true (get-in p ["fair_labor_provenance" "noWorkerBelowBhi"])))
     (is (= true (get-in p ["fair_labor_provenance" "dividendAttested"])))))
 
+(deftest test-canonical-handler-runs-complete-flow
+  (let [result (sm/handle {"quantity" 2
+                           "made_to_need_ceiling" 2
+                           "displaced_cohort_id" "cohort-standalone"
+                           "dividend_attested" true})]
+    (is (= "lot_attested" (get-in result ["cell_state" "phase"])))
+    (is (= "end" (get result "next_node")))))
+
 (deftest test-phase-progression-and-ceiling-default
   (let [s1 (sm/transition-to-finished {"cell_state" {} "quantity" 50})   ; ceiling defaults to quantity
         s2 (sm/transition-to-folded s1)]

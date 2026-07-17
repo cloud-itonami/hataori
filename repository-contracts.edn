@@ -1,0 +1,9 @@
+[{:repository/name "com-etzhayyim-hataori"
+  :repository/category :actor
+  :repository/source-format :edn
+  :repository/authoritative true
+  :repository/west-path "orgs/etzhayyim/com-etzhayyim-hataori"
+  :repository/legacy-path "20-actors/hataori"
+  :repository/runtime :babashka
+  :repository/test-command "bb test"
+  :repository/external-dependencies []}]
