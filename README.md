@@ -57,7 +57,7 @@ compliant. Both are measured in the quickstart, sections 5 and 4.
 | `manifest.edn` | actor identity, fleet, 9 gates, 5 non-goals, cell + lex indexes |
 | `cells/*.edn` | per-cell declaration: state graph, gates carried, kotoba reads/writes |
 | `src/hataori/cells/finishing_packing/` | the one implemented cell, and its tests |
-| `src/hataori/methods/test_charter_gates.cljc` | lexicon conformance (G9, G1, QC) |
+| `src/hataori/methods/test_charter_gates.cljk` | lexicon conformance (G9, G1, QC) |
 | `lex/*.edn` | five record lexicons |
 | `kotoba/seed.edn`, `data/fleet.kotoba.edn` | `:representative` R0 seed, 5-robot fleet |
 | `schema.edn` | generated Datomic/Datascript schema — do not hand-edit |

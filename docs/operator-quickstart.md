@@ -24,10 +24,10 @@ forbids new `bb.edn` / `.sh` files. This repo predates that and still carries
 
 **`nbb` will not run this suite as-is**, and it is worth knowing why before you try:
 
-- `src/hataori/methods/test_charter_gates.cljc` reads `lex/*.edn` from disk inside a
+- `src/hataori/methods/test_charter_gates.cljk` reads `lex/*.edn` from disk inside a
   `#?(:clj ...)` block. Under `nbb` the `:cljs` branch is taken, `lex` is never
   defined, and the gate tests cannot run.
-- `src/hataori/cells/finishing_packing/test_state_machine.cljc` asserts with
+- `src/hataori/cells/finishing_packing/test_state_machine.cljk` asserts with
   `(thrown-with-msg? clojure.lang.ExceptionInfo ...)`, which is a JVM class name.
 
 The cell **implementation** (`state_machine.cljc`) has no reader conditionals and is
@@ -197,7 +197,7 @@ list is not a list of things this tree enforces. Counting what is actually execu
 
 - **Refused by cell code**: `G2`, `G9`, and `N4` — the last a non-goal rather than a
   gate. These are the three tags in section 3; `grep -o ':hataori/violation :[a-z0-9]*'
-  src/hataori/cells/finishing_packing/state_machine.cljc` is the whole list.
+  src/hataori/cells/finishing_packing/state_machine.cljk` is the whole list.
 - **Checked at the lexicon level**: `G1` and the needle-detect QC enum, by
   `test_charter_gates.cljc` (which also re-pins `G9`).
 - **Declared only**: `G3` witness quorum, `G4` Murakumo-only, `G8` sourcing honesty ride
@@ -207,7 +207,7 @@ list is not a list of things this tree enforces. Counting what is actually execu
 So six of nine gates ride on a cell, but two of the nine are enforced by running code.
 The rest are obligations on a future cell wave, not properties of this tree.
 
-The lexicon side is checked separately. `src/hataori/methods/test_charter_gates.cljc`
+The lexicon side is checked separately. `src/hataori/methods/test_charter_gates.cljk`
 pins **G9** (`fairLaborProvenance` requires `displacedCohortId` and
 `noWorkerBelowBhi`, the latter `const true`), **G1** (`cuttingPlanAttestation.patented`
 `const false`), and the needle-detect QC result enum. Note that the lexicon pins
