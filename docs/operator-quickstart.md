@@ -37,12 +37,12 @@ real gate, and is deliberately not done here — see the bottom of this file.
 ## 1. Run the suite
 
 ```bash
-bb test          # or: ./run_tests.sh — bb.edn's `test` task just shells out to it
+kbb -M:test          # or: ./run_tests.sh — bb.edn's `test` task just shells out to it
 ```
 
 Measured 2026-09-01: `Ran 9 tests containing 24 assertions. 0 failures, 0 errors.`
 
-`repository-contracts.edn` declares `:repository/test-command "bb test"`. That claim
+`repository-contracts.edn` declares `:repository/test-command "kbb -M:test"`. That claim
 holds — it is the command above, and it exits 0.
 
 ## 2. Drive the terminal cell
@@ -51,7 +51,7 @@ holds — it is the command above, and it exits 0.
 else in `cells/` is a declaration. Drive it end to end:
 
 ```bash
-bb -cp src -e '
+kbb -cp src -e '
 (require (quote [hataori.cells.finishing-packing.state-machine :as sm]))
 (let [ok (sm/handle {"quantity" 50 "made_to_need_ceiling" 50
                      "offcut_waste_permille" 80
@@ -77,7 +77,7 @@ This is the part worth your five minutes. Three constitutional gates are enforce
 code, and each names itself when it refuses:
 
 ```bash
-bb -cp src -e '
+kbb -cp src -e '
 (require (quote [hataori.cells.finishing-packing.state-machine :as sm]))
 (defn try! [label f]
   (println label
@@ -113,7 +113,7 @@ thrown" counts a refusal for an unrelated reason as a success. The `ex-data` car
 Run the same cell with the gate inputs simply **absent**, rather than false:
 
 ```bash
-bb -cp src -e '
+kbb -cp src -e '
 (require (quote [hataori.cells.finishing-packing.state-machine :as sm]))
 ;; no_worker_below_bhi is never supplied by anyone
 (let [r (sm/handle {"quantity" 50 "made_to_need_ceiling" 50
@@ -156,7 +156,7 @@ which is not what this document is.
 Five cells, one chain. Derive it rather than trusting this paragraph:
 
 ```bash
-bb -e '
+kbb -e '
 (require (quote [clojure.edn :as edn]))
 (let [cells (for [id (map :cell/id (:actor/cells (edn/read-string (slurp "manifest.edn"))))]
               (let [c (first (edn/read-string (slurp (str "cells/" id ".edn"))))]
@@ -178,7 +178,7 @@ Nothing dangles in the middle.
 To see what is coded versus declared, and which gates ride on a cell at all:
 
 ```bash
-bb -e '
+kbb -e '
 (require (quote [clojure.edn :as edn]))
 (let [m (edn/read-string (slurp "manifest.edn"))
       cell #(first (edn/read-string (slurp (str "cells/" % ".edn"))))
@@ -250,7 +250,7 @@ DID document, so both can change without a commit here.
 - `:repository/legacy-path "20-actors/hataori"` is history, and correctly labelled as
   such.
 
-`:repository/runtime :babashka` and `:repository/test-command "bb test"` are both
+`:repository/runtime :babashka` and `:repository/test-command "kbb -M:test"` are both
 accurate — see section 1.
 
 ## What this document deliberately does not do

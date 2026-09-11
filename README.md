@@ -15,7 +15,7 @@ to watching the actor refuse, in five minutes. It also shows you the two places 
 does *not* refuse, which is the thing worth knowing before you trust anything it emits.
 
 ```bash
-bb test     # 9 tests / 24 assertions, measured 2026-09-01
+kbb -M:test     # 9 tests / 24 assertions, measured 2026-09-01
 ```
 
 ## Why garment work
