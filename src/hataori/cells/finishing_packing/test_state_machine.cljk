@@ -4,7 +4,7 @@
   lot_attested and pins: N4 no-overproduction (quantity ≤ made-to-need ceiling), G9 no worker
   re-employed below BHI, G2 displacement-dividend attested + cohort registered, and the emitted
   finished-lot + fair-labor-provenance payload."
-  (:require [kotoba.lang.error :as kerror] [clojure.test :refer [deftest is]]
+  (:require [kotoba.lang.error :as kerror] [kotoba.test :refer [deftest is]]
             [hataori.cells.finishing-packing.state-machine :as sm]))
 
 (defn- run-to-attested [fin-over att-over]

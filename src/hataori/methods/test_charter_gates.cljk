@@ -14,7 +14,7 @@
   It weakens no gate; it asserts them. The dividend-coupling (G2), cash≡0 (G5), Murakumo-only (G4),
   outward-gating (G7) and no-wearer-surveillance (N2) gates live in cells/manifest and are
   untouched here."
-  (:require [clojure.test :refer [deftest is run-tests]]
+  (:require [kotoba.test :refer [deftest is run-tests]]
             [clojure.edn :as edn]))
 
 #?(:clj
