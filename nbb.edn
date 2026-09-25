@@ -5,6 +5,9 @@
 ;; :paths and every sha below are COPIED from bb.edn, not chosen here.
 {:paths ["src" "."]
  :deps {
+        ;; kotoba.lang.error replaced clojure.lang.ExceptionInfo here (2026-09-25).
+        ;; An explicit floor: tools.deps takes the NEWEST sha it is shown.
+        io.github.kotoba-lang/error {:git/sha "838dec56c9a5b74f9eec825a2fb28bda157f8cd3"}
         ;; Declared HERE and not only in bb.edn: nbb reads nbb.edn and does NOT
         ;; read deps.edn or bb.edn, and the .cljs in this repo are run as
         ;; bare `nbb <file>`. A coordinate they cannot see is not a
