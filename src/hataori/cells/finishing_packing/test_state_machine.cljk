@@ -4,7 +4,7 @@
   lot_attested and pins: N4 no-overproduction (quantity ≤ made-to-need ceiling), G9 no worker
   re-employed below BHI, G2 displacement-dividend attested + cohort registered, and the emitted
   finished-lot + fair-labor-provenance payload."
-  (:require [clojure.test :refer [deftest is]]
+  (:require [kotoba.lang.error :as kerror] [clojure.test :refer [deftest is]]
             [hataori.cells.finishing-packing.state-machine :as sm]))
 
 (defn- run-to-attested [fin-over att-over]
@@ -43,18 +43,18 @@
     (is (= "lot_attested" (get s2 "next_node")))))
 
 (deftest test-n4-blocks-overproduction
-  (is (thrown-with-msg? clojure.lang.ExceptionInfo #"N4 violation"
+  (is (thrown-with-msg? kerror/ExceptionInfo #"N4 violation"
                         (sm/transition-to-finished {"cell_state" {} "quantity" 200 "made_to_need_ceiling" 100}))))
 
 (deftest test-g9-blocks-below-bhi-reemployment
-  (is (thrown-with-msg? clojure.lang.ExceptionInfo #"G9 violation"
+  (is (thrown-with-msg? kerror/ExceptionInfo #"G9 violation"
                         (run-to-attested {} {"displaced_cohort_id" "c1" "dividend_attested" true
                                              "no_worker_below_bhi" false}))))
 
 (deftest test-g2-blocks-unfunded-and-missing-cohort
   ;; dividend not attested → G2
-  (is (thrown-with-msg? clojure.lang.ExceptionInfo #"G2 violation"
+  (is (thrown-with-msg? kerror/ExceptionInfo #"G2 violation"
                         (run-to-attested {} {"displaced_cohort_id" "c1" "dividend_attested" false})))
   ;; cohort missing → G2
-  (is (thrown-with-msg? clojure.lang.ExceptionInfo #"G2 violation"
+  (is (thrown-with-msg? kerror/ExceptionInfo #"G2 violation"
                         (run-to-attested {} {"displaced_cohort_id" "" "dividend_attested" true}))))
