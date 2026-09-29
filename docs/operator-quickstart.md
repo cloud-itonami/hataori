@@ -18,7 +18,7 @@ bb --version        # Babashka. This is the only runtime the suite runs under to
 ```
 
 Babashka is the honest answer and also an awkward one. The workspace-wide rule
-(`CLAUDE.md`, ADR-2607173000) retires `bb` as a script host in favour of `nbb`, and
+(`AGENTS.md`, ADR-2607173000) retires `bb` as a script host in favour of `nbb`, and
 forbids new `bb.edn` / `.sh` files. This repo predates that and still carries
 `bb.edn` + `run_tests.sh`.
 
